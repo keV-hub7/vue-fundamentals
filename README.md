@@ -83,3 +83,93 @@ A working Vue 3 + Vite app rendering a clean, centered personal profile card (ph
 
 *Screenshot*
 ![description](screenshots/final.png)
+
+
+## Day 2 — Template Syntax & Interpolation
+
+### Topic
+`{{ }}` interpolation, `v-bind` (attribute binding), and class/style binding.
+
+### Milestone
+Make the profile card dynamic: the data comes from a JavaScript object instead of being hardcoded in the HTML.
+
+### 1. Moving the Data into a JavaScript Object
+
+In Day 1, the name, bio and photo were typed directly into the template. In Day 2, all of that information was moved into a `user` object inside `<script setup>`:
+
+```js
+const user = {
+  name: 'Somtochukwu Kevin Ogamba',
+  role: 'Computer Science Student',
+  bio: 'I am a final year Computer Science student at UNIZIK, passionate about UI/UX Designing and front-end development. Currently learning Vue.js fundamentals.',
+  photo: profilePic,
+  photoAlt: 'Profile photo of Kevin',
+  accentColor: 'rgb(174, 94, 181)',
+  available: true,
+}
+```
+
+The template now reads its content from this object. Editing a value in the object updates the card without changing the HTML.
+
+*Screenshot*
+![user object](screenshots/day2-user-object.png)
+
+### 2. Bound Properties
+
+- Interpolation  `{{ user.name }}`  Displays the name as text 
+- Interpolation  `{{ user.role }}`  Displays the role as text 
+- Interpolation  `{{ user.bio }}`  Displays the bio as text 
+- Attribute binding (`v-bind`)  `:src="user.photo"`  Sets the image source from data 
+- Attribute binding (`v-bind`)  `:alt="user.photoAlt"`  Sets the image alt text from data 
+- Style binding  `:style="{ borderColor: user.accentColor }"` Sets the photo border color from data 
+- Class binding  `:class="user.available ? 'online' : 'offline'"`  Applies a green or red badge style based on a true/false value 
+
+**Interpolation (`{{ }}`)** inserts a value as text between tags:
+```html
+<h1>{{ user.name }}</h1>
+```
+
+**Attribute binding (`v-bind`, written as `:`)** is used when a value has to go inside an HTML attribute, where `{{ }}` cannot be used:
+```html
+<img :src="user.photo" :alt="user.photoAlt" />
+```
+
+**Style binding** takes an object of CSS properties written in camelCase:
+```html
+:style="{ borderColor: user.accentColor }"
+```
+
+**Class binding** chooses a class from a condition:
+```html
+<span class="status" :class="user.available ? 'online' : 'offline'">
+  {{ user.available ? 'Available' : 'Unavailable' }}
+</span>
+```
+
+*Screenshot*
+![template bindings](screenshots/day2-template-bindings.png)
+
+### 3. Result in the Browser
+
+The card now shows the photo, name, role, bio and an availability badge, all driven by the `user` object.
+
+*Screenshot*
+![rendered card](screenshots/day2-card.png)
+
+Setting `available: false` in the object changes the badge to red and the text to "Unavailable", which confirms the card responds to its data.
+
+*Screenshot: card with `available: false`*
+![unavailable state](screenshots/day2-unavailable.png)
+
+### 4. Pushing to GitHub
+
+git add .
+git commit -m "Day 2 - dynamic profile card with data binding"
+git push
+
+
+**Repo link:** https://github.com/keV-hub7/vue-fundamentals
+
+### What I Learned
+- Data can live in a JavaScript object and be displayed in the template, which keeps content and markup separate.
+- `{{ }}` is for text, while `v-bind` (`:`) is for attributes, including `class` and `style`.
