@@ -216,7 +216,7 @@ A button increments `clickCount` on every click, and the number updates on scree
 </div>
 ```
 
-`@click` is shorthand for `v-on:click` — it runs `incrementCount()` whenever the button is clicked.
+`@click` is shorthand for `v-on:click` - it runs `incrementCount()` whenever the button is clicked.
 
 ### 3. Live-Editable Bio Field
 
