@@ -242,7 +242,7 @@ A 48 seconds recording was made showing:
 2. Typing into the bio textarea, with the bio text above updating live as each character is typed
 
 *Screen recording*
-![Link to recording](screenshots/day3-reactivity-video.mp4)
+[Link to recording](screenshots/day3-reactivity-video.mp4)
 
 ### 5. Pushing to GitHub
 
@@ -251,9 +251,6 @@ git add .
 git commit -m "Day 3 - reactive click counter and live-editable bio"
 git push
 ```
-
-📸 *Screenshot: successful git push*
-`![git push](screenshots/day3-git-push.png)`
 
 **Repo link:** https://github.com/keV-hub7/vue-fundamentals
 
