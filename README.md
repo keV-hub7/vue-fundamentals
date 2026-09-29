@@ -173,3 +173,91 @@ git push
 ### What I Learned
 - Data can live in a JavaScript object and be displayed in the template, which keeps content and markup separate.
 - `{{ }}` is for text, while `v-bind` (`:`) is for attributes, including `class` and `style`.
+
+
+
+## Day 3 - Reactivity Basics
+
+### Topic
+`ref()`, `reactive()`, and the Vue reactivity system.
+
+### Milestone
+Add a click counter and a live-editable bio field to the profile card.
+
+### 1. Reactivity with `ref()` and `reactive()`
+
+Two reactivity tools were used:
+
+- **`reactive()`** — wraps the whole `user` object so Vue tracks changes to any property inside it.
+- **`ref()`** — wraps a single standalone value. It was used here for a click counter:
+
+```js
+import { ref, reactive } from 'vue'
+
+const clickCount = ref(0)
+
+function incrementCount() {
+  clickCount.value++
+}
+```
+
+Inside `<script setup>`, a `ref` is written with `.value` (`clickCount.value++`). Inside the `<template>`, Vue unwraps it automatically, so it's written as `{{ clickCount }}` with no `.value`.
+
+*Screenshot*
+![reactivity](screenshots/day3-reactivity-setup.png)
+
+### 2. Click Counter
+
+A button increments `clickCount` on every click, and the number updates on screen instantly:
+
+```html
+<div class="counter">
+  <button @click="incrementCount">Click Here! {{ clickCount }}</button>
+</div>
+```
+
+`@click` is shorthand for `v-on:click` — it runs `incrementCount()` whenever the button is clicked.
+
+### 3. Live-Editable Bio Field
+
+A `<textarea>` was added, linked to `user.bio` using `v-model`:
+
+```html
+<p class="bio">{{ user.bio }}</p>
+
+<textarea
+  v-model="user.bio"
+  class="bio-edit"
+  rows="3"
+  placeholder="Edit your bio..."
+></textarea>
+```
+
+`v-model` creates two-way binding: typing in the textarea updates `user.bio`, and because `user` is `reactive()`, every place `user.bio` is used — including the `<p class="bio">` above — updates live, character by character, with no save button needed.
+
+### 4. Screen Recording
+
+A 48 seconds recording was made showing:
+1. Clicking the "Click Here!" button, with the counter increasing in real time
+2. Typing into the bio textarea, with the bio text above updating live as each character is typed
+
+*Screen recording*
+![Link to recording](screenshots/day3-reactivity-video.mp4)
+
+### 5. Pushing to GitHub
+
+```
+git add .
+git commit -m "Day 3 - reactive click counter and live-editable bio"
+git push
+```
+
+📸 *Screenshot: successful git push*
+`![git push](screenshots/day3-git-push.png)`
+
+**Repo link:** https://github.com/keV-hub7/vue-fundamentals
+
+### What I Learned
+- `ref()` is for a single reactive value, accessed with `.value` in the script but not in the template.
+- `reactive()` is for a whole object, and any property change inside it automatically updates everywhere that property is used.
+- `v-model` combines a value and an event listener into one directive, giving two-way binding between an input and data.
